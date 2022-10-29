@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01</title>
+    <style>
+        #app{
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #eee, #111);
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h3>{{title}}</h3>
+        <div class="price">${{price}}</div>
+        <div class="count">
+            <button @click="reduce">-</button>
+            <input type="text" v-model.number="count">
+            <button @click="add">+</button>
+        </div>
+        <button>add</button>
+        <div class="total">總計:{{total}}元</div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data(){
+                return {
+                    title: '我是商品',
+                    price: 100,
+                    count: 0,
+                    total: 0
+                }
+            },
+            methods:{
+                add(){
+                    this.count += 1
+                    this.sumTotal()
+                },
+                reduce(){
+                    if(this.count<=0) return
+                    this.count -= 1
+                    this.sumTotal()
+                },
+                sumTotal(){
+                    this.total = this.count * this.price
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01</title>
+    <style>
+        #app{
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, red, orange, yellow, green, blue, purple);
+        }
+        img{
+            width: 5rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- <h3>{{title}}</h3>
+        <div class="price">${{price}}</div>
+        <div class="count">
+            <button @click="reduce">-</button>
+            <input type="text" v-model.number="count">
+            <button @click="add">+</button>
+        </div>
+        <div class="total">總計:{{total}}元</div> -->
+        <!-- {{product[0]}} -->
+
+        <!-- 物件in變數/陣列 -->
+        <div class="pagination">
+            <button v-for="page in 10" :key="page">{{page}}</button>
+        </div>
+        <div v-for="(item, index) in product" :key="item.id">
+            <h3>{{item.title}}</h3>
+            <img :src="item.image" alt="">
+            <div class="price">${{item.price}}</div>
+            <div class="count">
+                <button @click="reduce(index)">-</button>
+                <input type="number" v-model="count[index]">
+                <button @click="add(index)">+</button>
+            </div>
+        </div>
+        <div class="total">總計:{{total}}元</div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        Vue.createApp({
+            data(){
+                return {
+                    product: [{
+                        "id": 1,
+                        "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+                        "price": 109.95,
+                        "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
+                        "category": "men's clothing",
+                        "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+                        "rating": {
+                            "rate": 3.9,
+                            "count": 120
+                        }
+                    }, {
+                        "id": 2,
+                        "title": "Mens Casual Premium Slim Fit T-Shirts ",
+                        "price": 22.3,
+                        "description": "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.",
+                        "category": "men's clothing",
+                        "image": "https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg",
+                        "rating": {
+                            "rate": 4.1,
+                            "count": 259
+                        }
+                    }],
+                    count: [],
+                    total: 0
+                }
+            },
+            mounted() {
+                for(item in this.product){
+                    this.count.push(0)
+                }
+            },
+            methods:{
+                add(index){
+                    this.count[index] += 1
+                    this.sumTotal()
+                },
+                reduce(index){
+                    if(this.count[index]<=0) return
+                    this.count[index] -= 1
+                    this.sumTotal()
+                },
+                sumTotal(){
+                    this.total = 0
+                    for(countIndex in this.count){
+                        this.total += this.count[countIndex] * this.product[countIndex]['price']
+                    }
+                    this.total = parseInt(this.total)
+                    
+                    /* this.count.map((item, index) => {
+                        // item : 商品數量
+                        // index : 商品在陣列的位子
+                        // this.product[index] : 商品資訊
+                        // this.product[index]['price'] : 商品價錢
+                        console.log(item.price)
+                    }) */
+                }
+            }
+        }).mount('#app')
+    </script>
+</body>
+</html>
