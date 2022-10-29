@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01</title>
+</head>
+<body>
+    <div id="app">
+        <!-- {{模板語言}} -->
+        <!-- 作用域scope -->
+        <h3>{{ typeof count }}</h3>
+        <p>{{name}}{{array.length}}</p>
+        <div>{{obj}}</div>
+        <div>{{talk ? 'fuck': 'you'}}</div>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        //options  新增一個應用application - 建立vue實體instance
+        Vue.createApp({
+            data(){
+                return {
+                    count: 1, //number
+                    name: '操你媽', //string
+                    array: [1,2,3], //array
+                    obj: {test: '123'}, //object
+                    talk: false, //boolen
+                }
+            }
+        }).mount('#app')  //掛載(mount)在網頁節點上(id="app")
+    </script>
+</body>
+</html>
